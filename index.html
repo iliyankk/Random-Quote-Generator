@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Random Quote Generator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <style>
+        body {
+            background: hsla(0, 0%, 25%, 1);
+            background: radial-gradient(circle, hsla(0, 0%, 25%, 1) 5%, hsla(0, 0%, 15%, 1) 35%, hsla(0, 0%, 0%, 1) 64%);
+            background: -moz-radial-gradient(circle, hsla(0, 0%, 25%, 1) 5%, hsla(0, 0%, 15%, 1) 35%, hsla(0, 0%, 0%, 1) 64%);
+            background: -webkit-radial-gradient(circle, hsla(0, 0%, 25%, 1) 5%, hsla(0, 0%, 15%, 1) 35%, hsla(0, 0%, 0%, 1) 64%);
+            margin: 0;
+            user-select: none;
+            height: 100vh;
+        }
+
+        * {
+            color: white;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        #gen {
+            text-transform: uppercase;
+            border: 3px solid darkgray;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1.8rem;
+            background: transparent;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #gen-div {
+            display: flex;
+            justify-content: center;
+            
+        }
+
+        #gen-div-1 {
+            margin: 0 auto;
+        }
+
+        .div-line {
+            border-top: 2px solid darkgray;
+            display: flex;
+            width: 50%;
+            margin-bottom: 10px;
+        }
+
+        #select-category {
+            color: white;
+            background: hsla(0, 0%, 15%, 1);
+            width: 125px;
+            text-align: center;
+            border-radius: 5px;
+            outline: none;
+            border: 2px solid darkgray;
+            text-transform: capitalize;
+        }
+
+        option {
+            color: white;
+        }
+
+        .row-align {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .spn-algn {
+            max-width: 45%;
+            font-size: 1.5rem;
+        }
+
+        .auth-algn {
+            color: rgb(184, 184, 184);
+            white-space: nowrap;
+            float: right;
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+        }
+
+        #gndv {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #select-align {
+            margin-top: 7px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #rows-display {
+            height: 80vh;
+        }
+
+        #profile-links {
+            display: grid;
+            grid-gap: 5px;
+            margin: 10px 0 5px 5px;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .pl {
+            text-decoration: none;
+            font-size: 1.2rem;
+            width: fit-content;
+            color: white;
+            display: flex;
+            animation: typing 3s steps(10) 1;
+        }
+
+        .fa {                           
+            font-size: 25px !important;
+            margin-right: 5px !important;
+        }
+
+
+        @media only screen and (max-width: 1350px) {
+            .div-line {
+                width: 55%;
+            }
+            
+            .spn-algn {
+                max-width: 50%;
+            }
+        }
+
+        @media only screen and (max-width: 1150px) {
+            .div-line {
+                width: 60%;
+            }
+            
+            .spn-algn {
+                max-width: 55%;
+            }
+        }
+
+        @media only screen and (max-width: 1000px) {
+            .div-line {
+                width: 65%;
+            }
+            
+            .spn-algn {
+                max-width: 60%;
+            }
+        }
+
+        @media only screen and (max-width: 850px) {
+            .div-line {
+                width: 70%;
+            }
+            
+            .spn-algn {
+                max-width: 65%;
+            }
+        }
+
+        @media only screen and (max-width: 700px) {
+            .div-line {
+                width: 75%;
+            }
+            
+            .spn-algn {
+                max-width: 70%;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .div-line {
+                width: 80%;
+            }
+            
+            .spn-algn {
+                max-width: 75%;
+            }
+        }
+
+        @media only screen and (max-width: 550px) {
+            .div-line {
+                width: 100%;
+            }
+            
+            .spn-algn {
+                max-width: 80%;
+            }
+
+            #profile-links {
+                position: absolute;
+                top: 0;
+                display: flex;
+                margin: 5px 0 5px 5px;
+                gap: 10px;
+                height: fit-content;
+            }
+        }
+        
+        @media only screen and (max-width: 500px) {
+            .div-line {
+                width: 100%;
+            }
+            
+            .spn-algn {
+                max-width: 90%;
+            }
+
+            #profile-links {
+                position: absolute;
+                top: 0;
+                display: flex;
+                margin: 5px 0 5px 5px;
+                gap: 10px;
+                height: fit-content;
+            }
+        }
+    </style>
+
+<div id="typing-text"></div>
+
+
+            <div id="rows-display">
+                <div id="row-1" class="row-align ">
+                    <div class="spn-algn ">
+                        <span id="quote1" class="qut-algn"></span><br>
+                        <span id="author1" class="auth-algn"></span>
+                    </div>
+                </div>
+            </div>
+        <div id="gndv">
+            <div id="gen-div">    
+                <div class="div-line">
+                    <div id="gen-div-1">
+                        <button id="gen" onclick="generate()">generate quote </button>
+                        
+                        <div id="select-align">
+                            <select name="" id="select-category">
+                                <option value="happiness">happiness</option>
+                                <option value="age">age</option>
+                                <option value="amazing">amazing</option>
+                                <option value="art">art</option>
+                                <option value="beauty">beauty</option>
+                                <option value="business">business</option>
+                                <option value="car">car</option>
+                                <option value="computers">computers</option>
+                                <option value="cool">cool</option>
+                                <option value="courage">courage</option>
+                                <option value="design">design</option>
+                                <option value="dreams">dreams</option>
+                                <option value="education">education</option>
+                                <option value="experience">experience</option>
+                                <option value="failure">failure</option>
+                                <option value="faith">faith</option>
+                                <option value="family">family</option>
+                                <option value="fear">fear</option>
+                                <option value="fitness">fitness</option>
+                                <option value="food">food</option>
+                                <option value="forgiveness">forgiveness</option>
+                                <option value="freedom">freedom</option>
+                                <option value="friendship">friendship</option>
+                                <option value="funny">funny</option>
+                                <option value="future">future</option>
+                                <option value="god">god</option>
+                                <option value="good">good</option>
+                                <option value="graduation">graduation</option>
+                                <option value="great">great</option>
+                                <option value="happiness">happiness</option>
+                                <option value="health">health</option>
+                                <option value="history">history</option>
+                                <option value="home">home</option>
+                                <option value="hope">hope</option>
+                                <option value="humor">humor</option>
+                                <option value="imagination">imagination</option>
+                                <option value="inspirational">inspirational</option>
+                                <option value="intelligence">intelligence</option>
+                                <option value="jealousy">jealousy</option>
+                                <option value="knowledge">knowledge</option>
+                                <option value="leadership">leadership</option>
+                                <option value="learning">learning</option>
+                                <option value="life">life</option>
+                                <option value="love">love</option>
+                                <option value="marriage">marriage</option>
+                                <option value="mom">mom</option>
+                                <option value="money">money</option>
+                                <option value="success">success</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="profile-links">
+            <a class="pl" href="https://github.com/iliyankk" target="_blank"> <i class="fa fa-github"></i>@iliyankk</a>
+            <a class="pl" href="https://www.linkedin.com/in/iliyan-kiryakov-4b50a1245/" target="_blank"> <i class="fa fa-linkedin-square"></i>@iliyan-kiryakov</a>
+        </div>
+
+    <script>
+
+//Mdjd0xmm5qGfS9ifGuvtbw==ikRPC6PUPqbKaRXs api key
+
+function generate() {
+    var category = document.getElementById("select-category").value;
+    $.ajax({
+        method: 'GET',
+        url: 'https://api.api-ninjas.com/v1/quotes?category=' + category,
+        headers: { 'X-Api-Key': 'Mdjd0xmm5qGfS9ifGuvtbw==ikRPC6PUPqbKaRXs'},
+        contentType: 'application/json',
+        success: function(result) {
+            console.log(result);
+            const quote = '" ' + result[0].quote + ' "';
+            const author = '- ' + result[0].author;
+            const quoteElement = document.getElementById("quote1");
+            const authorElement = document.getElementById("author1");
+            
+            // Clear the existing text before typing animation
+            quoteElement.textContent = "";
+            authorElement.textContent = "";
+            
+            // Start typing animation for quote
+            let i = 0;
+            const delay = 0;
+            function typeQuote() {
+              if (i < quote.length) {
+                quoteElement.textContent += quote.charAt(i);
+                i++;
+                setTimeout(typeQuote, delay);
+              }
+            }
+            typeQuote();
+            
+            // Start typing animation for author after quote typing is completed
+            setTimeout(function() {
+              let j = 0;
+              function typeAuthor() {
+                if (j < author.length) {
+                  authorElement.textContent += author.charAt(j);
+                  j++;
+                  setTimeout(typeAuthor, delay);
+                }
+              }
+              typeAuthor();
+            }, quote.length * delay);
+        },
+        error: function ajaxError(jqXHR) {
+            console.error('Error: ', jqXHR.responseText);
+        }
+    });   
+}
+    </script>
+     
+     
+</body>
+</html>
