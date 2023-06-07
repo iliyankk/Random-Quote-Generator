@@ -313,7 +313,6 @@
 
 //Mdjd0xmm5qGfS9ifGuvtbw==ikRPC6PUPqbKaRXs api key
 
-
 var quoteInProgress = false; // Flag to track if a quote generation process is already running
 
 function generate() {
@@ -369,7 +368,8 @@ function generate() {
             console.error('Error: ', jqXHR.responseText);
             quoteInProgress = false; // Set the flag to indicate that the quote generation process has completed (even in case of an error)
         }
-    }); 
+    });   
+}
     </script>
      
      
