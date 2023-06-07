@@ -313,7 +313,16 @@
 
 //Mdjd0xmm5qGfS9ifGuvtbw==ikRPC6PUPqbKaRXs api key
 
+
+var quoteInProgress = false; // Flag to track if a quote generation process is already running
+
 function generate() {
+    if (quoteInProgress) {
+        return; // Return early if a quote generation process is already running
+    }
+    
+    quoteInProgress = true; // Set the flag to indicate that a quote generation process has started
+    
     var category = document.getElementById("select-category").value;
     $.ajax({
         method: 'GET',
@@ -335,32 +344,32 @@ function generate() {
             let i = 0;
             const delay = 65;
             function typeQuote() {
-              if (i < quote.length) {
-                quoteElement.textContent += quote.charAt(i);
-                i++;
-                setTimeout(typeQuote, delay);
-              }
+                if (i < quote.length) {
+                    quoteElement.textContent += quote.charAt(i);
+                    i++;
+                    setTimeout(typeQuote, delay);
+                } else {
+                    // Start typing animation for author after quote typing is completed
+                    let j = 0;
+                    function typeAuthor() {
+                        if (j < author.length) {
+                            authorElement.textContent += author.charAt(j);
+                            j++;
+                            setTimeout(typeAuthor, delay);
+                        } else {
+                            quoteInProgress = false; // Set the flag to indicate that the quote generation process has completed
+                        }
+                    }
+                    typeAuthor();
+                }
             }
             typeQuote();
-            
-            // Start typing animation for author after quote typing is completed
-            setTimeout(function() {
-              let j = 0;
-              function typeAuthor() {
-                if (j < author.length) {
-                  authorElement.textContent += author.charAt(j);
-                  j++;
-                  setTimeout(typeAuthor, delay);
-                }
-              }
-              typeAuthor();
-            }, quote.length * delay);
         },
         error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
+            quoteInProgress = false; // Set the flag to indicate that the quote generation process has completed (even in case of an error)
         }
-    });   
-}
+    }); 
     </script>
      
      
